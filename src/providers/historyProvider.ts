@@ -19,7 +19,7 @@ export class HistoryProvider {
   toObject(arr) {
     var rv = {};
     for (var i = 0; i < arr.length; ++i)
-      rv[i] = arr[i];
+      rv[arr[i]] = arr[i];
     return rv;
   }
 
@@ -28,29 +28,38 @@ export class HistoryProvider {
     //  this.storage.set('history',JSON.stringify(data));
   }
   
-  public add(newWordData) { 
-    console.log('newWordData',newWordData);
-    
+  public add(newWordData) {     
     // check exist 
     let newWord = Object.keys(newWordData);
+    let newWordMean = newWordData[newWord[0]];
     this.storage.get('history').then((rawdata) => {
+      // Check local storage emtpty
       if(rawdata){
         let jsondata = JSON.parse(rawdata)
-        console.log( 'jsondata',jsondata);
-        
         let wordList = Object.keys(jsondata);
-        
-        let exitWord=jsondata[newWord[0]];
-        if(exitWord){
-          console.log('exitWord',exitWord);
+        let existMeanArr=jsondata[newWord[0]];
+        // if exist word added new word
+        if(existMeanArr){ 
+          let existMeanObj = this.toObject(existMeanArr);
+          if(existMeanObj[newWordMean])
+          {
+            console.log('Already word exist'); 
+          }
+          else{
+            existMeanObj[newWordMean] = newWordMean
+            let updatedMeanArray = Object.keys(existMeanObj);
+            jsondata[newWord[0]] = updatedMeanArray;
+          }
           
-          jsondata[newWord[0]] = exitWord[newWord[0]]; 
         }
+        // add as new word to history
         else{
           jsondata[newWord[0]] = [newWordData[newWord[0]]]
-          this.storage.set('history',JSON.stringify(jsondata));
+          
         }
-      } 
+        this.storage.set('history',JSON.stringify(jsondata));
+      }
+      // add first record
       else{
         let data = {}
         data[newWord[0]] = [newWordData[newWord[0]]]

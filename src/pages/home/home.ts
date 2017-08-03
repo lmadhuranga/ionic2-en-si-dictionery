@@ -18,19 +18,19 @@ export class HomePage {
 
     this.dic = {}
     this.selecteWords = []; 
-    history.save({'name':"madhuranga"});
-    history.get();
   }
   protected browesWord(word:string) : any{
     return this.wordlist[word];
   }
 
+  // added to the history
   wordSelected(word: string){ 
     let data  = {}
     data[this.dic.find] = word;
     this.history.add(data);
   }
-  private findword () {
+  
+  findword () {
     this.selecteWords = this.browesWord(this.dic.find);
   }
 }
