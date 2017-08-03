@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h3>My dictionery</h3>
+  <ion-list>
+
+    <ion-item>
+      <ion-input type="text" ngModel (ngModelChange)='findword()' [(ngModel)]="dic.find"></ion-input>
+      <button ion-button outline item-end icon-left (click)='findword()'>
+        <ion-icon name="search"></ion-icon>Find
+      </button>
+    </ion-item>
+
+    <ion-item  *ngFor="let word of selecteWords" (click)="wordSelected(word)">
+      {{ word }}
+      <button ion-button outline item-end icon-left (click)="wordSelected(word)">
+        <ion-icon name="star"></ion-icon>
+      </button>
+    </ion-item>
+</ion-list> 
+</ion-content>
