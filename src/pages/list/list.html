@@ -3,21 +3,27 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>List</ion-title>
+    <ion-title>History</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-left></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-right>
-        {{item.note}}
-      </div>
-    </button>
-  </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
+<ion-content padding>
+  <h3>My dictionery</h3>
+  <ion-list> 
+    <span  *ngFor="let word of historyWordList">
+      <ion-item class="item-text-wrap">
+        {{ word }} 
+        <!--<button ion-button outline item-end icon-left (click)="wordSelected(word)">
+          <ion-icon name="star"></ion-icon>
+        </button>-->
+      </ion-item>
+      <ion-item  *ngFor="let mean of historyList[word]"  >
+        {{ mean }}
+        <button ion-button outline item-end icon-left >
+          <ion-icon name="star"></ion-icon>
+        </button>
+      </ion-item>
+    </span>
+    
+</ion-list> 
 </ion-content>

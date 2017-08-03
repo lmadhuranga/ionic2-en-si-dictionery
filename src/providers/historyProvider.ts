@@ -71,10 +71,16 @@ export class HistoryProvider {
 
     //  this.storage.set('history',JSON.stringify(data));
   }
-  public get(){
-    this.storage.get('history').then((val) => {
-      console.log('Your name is', val);
-    });    
+  load(key:string, Default:any) {
+    return new Promise((resolve, reject) => {
+        this.storage.get(key).then((data) => {
+            resolve(JSON.parse(data));
+        })
+        .catch(() => {
+            console.log("HistoryProvider------------>>Load DEFAULTS", Default);
+            resolve(Default);
+        });
+    }); 
   }
 
 }
