@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 // import { Http } from '@angular/http';
+import { Toast } from '@ionic-native/toast';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 

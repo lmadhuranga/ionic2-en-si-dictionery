@@ -24,18 +24,30 @@ export class HomePage {
     return this.wordlist[word];
   }
 
+  emptyWordList(){
+    this.selecteWords = [];
+  }
+
   // added to the history
-  wordSelected(word: string){ 
+  wordSelected (word: string){ 
     let data  = {}
     data[this.dic.find] = word;
     this.history.add(data);
   }
-  clear(){
+  clear (){
+    this.emptyWordList();
     this.dic.find="";
   }
   findword (ev) {
-    let word = ev.target.value;
-    word = word.trim()
-    this.selecteWords = this.browesWord(word);
+    let word = this.dic.find;
+    if(word){
+      word = word.trim()
+      this.selecteWords = this.browesWord(word);
+    }
+    // empty resutle
+    else {
+      this.emptyWordList();
+    }
+   
   }
 }
