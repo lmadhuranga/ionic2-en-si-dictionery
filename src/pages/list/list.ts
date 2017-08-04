@@ -9,23 +9,25 @@ import { HistoryProvider } from '../../providers/historyProvider';
 export class ListPage {
   private historyWordList:any;
   private historyMeanList:any;
-  
+  protected historyKey:string = 'history';
   constructor(public navCtrl: NavController, public navParams: NavParams,private history:HistoryProvider) { 
     this.load();
     this.historyMeanList= {};
+    
   }
 
   protected load(){
-    this.history.load('history',[])
+    // get all history
+    this.history.load(this.historyKey,[])
       .then((data) => { 
         if(data){
           this.historyWordList = data;
-          
           if(this.historyWordList.length>0){
             //get each mean list   
             this.historyWordList.forEach(word => {
+              // get mean array
               this.history.load(word,[]).then(meanarray =>{
-                console.log('mad_msg__meanarray',meanarray);
+                // get word for means
                 this.historyMeanList[word] = meanarray;
               })
             });
@@ -34,7 +36,7 @@ export class ListPage {
         }
       });
   }
-
+  // array convert to object
   toObject(arr) {
     var rv = {};
     for (var i = 0; i < arr.length; ++i)
