@@ -13,17 +13,17 @@
 
     <ion-item>
       <ion-input type="text" ngModel (keyup)='findword($event)' [(ngModel)]="dic.find"></ion-input>
-      <button ion-button outline item-end icon-left (click)='findword($event)'>
+      <button ion-button outline item-end icon-center (click)='findword($event)'>
         <ion-icon name="search"></ion-icon>
       </button>
-      <button ion-button outline item-end icon-left (click)='clear()'>
+      <button ion-button outline item-end icon-center (click)='findClear()'>
         <ion-icon name="trash"></ion-icon>
       </button>
     </ion-item>
 
     <ion-item  *ngFor="let word of selecteWords" (click)="wordSelected(word)">
       {{ word }}
-      <button ion-button outline item-end icon-left (click)="wordSelected(word)">
+      <button ion-button outline item-end icon-center (click)="wordSelected(word)">
         <ion-icon name="star"></ion-icon>
       </button>
     </ion-item>    

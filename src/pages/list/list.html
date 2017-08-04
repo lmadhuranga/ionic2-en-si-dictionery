@@ -8,22 +8,21 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>My dictionery</h3>
   <ion-list> 
-    <span  *ngFor="let word of historyWordList">
+     <span  *ngFor="let word of historyWordList">
       <ion-item class="item-text-wrap">
         {{ word }} 
-        <!--<button ion-button outline item-end icon-left (click)="wordSelected(word)">
-          <ion-icon name="star"></ion-icon>
-        </button>-->
-      </ion-item>
-      <ion-item  *ngFor="let mean of historyList[word]"  >
-        {{ mean }}
-        <button ion-button outline item-end icon-left >
+        <button ion-button outline item-end icon-center (click)="clear(word)">
           <ion-icon name="star"></ion-icon>
         </button>
       </ion-item>
-    </span>
+      <ion-item  *ngFor="let mean of historyMeanList[word]"  >
+        {{ mean }}
+        <button ion-button outline item-end icon-center  (click)="clear(word,mean)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item>
+    </span> 
     
 </ion-list> 
 </ion-content>

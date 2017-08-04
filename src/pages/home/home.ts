@@ -29,15 +29,16 @@ export class HomePage {
   }
 
   // added to the history
-  wordSelected (word: string){ 
-    let data  = {}
-    data[this.dic.find] = word;
-    this.history.add(data);
+  wordSelected (mean: string){ 
+    let word = this.dic.find
+    word = this.history.wordClean(word);
+    this.history.add(word, mean);
   }
-  clear (){
+  findClear (){
     this.emptyWordList();
     this.dic.find="";
   }
+
   findword (ev) {
     let word = this.dic.find;
     if(word){
