@@ -10,10 +10,10 @@ import { HistoryProvider } from '../../providers/historyProvider'
 export class HomePage { 
   private dic: any;
   private wordlist : any;
-  private historyWordList : any;
-  private historyList : any;
+  historyWordList : any;
+  historyList : any;
   private selecteWords : any;
-  constructor(public navCtrl: NavController, private history:HistoryProvider,private dicServise:Dictionery) {
+  constructor(public navCtrl: NavController, private history:HistoryProvider,dicServise:Dictionery) {
      dicServise.load().then((data) => {
         this.wordlist = data;
      }); 
@@ -33,7 +33,9 @@ export class HomePage {
   clear(){
     this.dic.find="";
   }
-  findword () {
-    this.selecteWords = this.browesWord(this.dic.find);
+  findword (ev) {
+    let word = ev.target.value;
+    word = word.trim()
+    this.selecteWords = this.browesWord(word);
   }
 }

@@ -36,7 +36,7 @@ export class HistoryProvider {
       // Check local storage emtpty
       if(rawdata){
         let jsondata = JSON.parse(rawdata)
-        let wordList = Object.keys(jsondata);
+        // let wordList = Object.keys(jsondata);
         let existMeanArr=jsondata[newWord[0]];
         // if exist word added new word
         if(existMeanArr){ 
