@@ -13,7 +13,7 @@
       <ion-item class="item-text-wrap">
         {{ word }} 
         <button ion-button outline item-end icon-center (click)="clear(word)">
-          <ion-icon name="star"></ion-icon>
+          <ion-icon name="trash"></ion-icon>
         </button>
       </ion-item>
       <ion-item  *ngFor="let mean of historyMeanList[word]"  >

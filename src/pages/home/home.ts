@@ -10,22 +10,42 @@ import { HistoryProvider } from '../../providers/historyProvider'
 export class HomePage { 
   private dic: any;
   private wordlist : any;
-  historyWordList : any;
-  historyList : any;
-  private selecteWords : any;
+  private historyMeanListObj : any;
+   
+  private selecteMeanList : any;
   constructor(public navCtrl: NavController, private history:HistoryProvider,dicServise:Dictionery) {
      dicServise.load().then((data) => {
         this.wordlist = data;
      }); 
     this.dic = {}
-    this.selecteWords = []; 
+    this.selecteMeanList = []; 
+    //Todo::remove wait and call 
+    setTimeout(() => {
+      this.dic.find = 'car';
+      this.findword(null);
+    },1000) 
+    
   }
   protected browesWord(word:string) : any{
-    return this.wordlist[word];
+    if (word && word.trim() != '') {
+      return this.wordlist[word];
+      // this.wordlist = this.wordlist.filter((result) => {
+      //   console.log('mad_msg__resutl',result);
+        
+      //   // return (word.toLowerCase().indexOf(word.toLowerCase()) > -1);
+      // })
+    }
   }
 
   emptyWordList(){
-    this.selecteWords = [];
+    this.selecteMeanList = [];
+  }
+
+  // find the word has saved means
+  protected getWordSavedMeans(word:string){
+    this.history.load(word, []).then(historyArr =>{ 
+      this.historyMeanListObj = this.history.toObject(historyArr);
+    })
   }
 
   // added to the history
@@ -43,12 +63,15 @@ export class HomePage {
     let word = this.dic.find;
     if(word){
       word = word.trim()
-      this.selecteWords = this.browesWord(word);
+      
+      this.getWordSavedMeans(word);
+      this.selecteMeanList = this.browesWord(word);
+      console.log('mad_msg__this.selecteMeanList',this.selecteMeanList);
+      
     }
     // empty resutle
     else {
       this.emptyWordList();
-    }
-   
+    } 
   }
 }

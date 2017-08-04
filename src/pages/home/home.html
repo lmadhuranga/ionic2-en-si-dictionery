@@ -8,24 +8,12 @@
 </ion-header>
 
 <ion-content padding>
-  <h3>My dictionery</h3>
-  <ion-list>
-
-    <ion-item>
-      <ion-input type="text" ngModel (keyup)='findword($event)' [(ngModel)]="dic.find"></ion-input>
-      <button ion-button outline item-end icon-center (click)='findword($event)'>
-        <ion-icon name="search"></ion-icon>
-      </button>
-      <button ion-button outline item-end icon-center (click)='findClear()'>
-        <ion-icon name="trash"></ion-icon>
-      </button>
-    </ion-item>
-
-    <ion-item  *ngFor="let word of selecteWords" (click)="wordSelected(word)">
-      {{ word }}
-      <button ion-button outline item-end icon-center (click)="wordSelected(word)">
-        <ion-icon name="star"></ion-icon>
-      </button>
-    </ion-item>    
-</ion-list> 
+    <ion-searchbar (ionInput)='findword($event)' [(ngModel)]="dic.find"></ion-searchbar>
+    <ion-list radio-group>
+      <ion-list-header> Mean </ion-list-header>
+      <ion-item  *ngFor="let mean of selecteMeanList" (click)="wordSelected(mean)">
+        <ion-label>{{ mean }} </ion-label>
+        <ion-checkbox color="royal" checked="true" (click)="wordSelected(mean)"></ion-checkbox> 
+      </ion-item>
+  </ion-list> 
 </ion-content>

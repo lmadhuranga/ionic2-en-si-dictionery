@@ -18,6 +18,10 @@ export class HistoryProvider {
   }
   
   toObject(arr) {
+    if(arr == null){
+      return {};
+    }
+
     var rv = {};
     for (var i = 0; i < arr.length; ++i)
       rv[arr[i]] = arr[i];
