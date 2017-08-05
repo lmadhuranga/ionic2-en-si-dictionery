@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 // import { Http } from '@angular/http';
 // import { Toast } from '@ionic-native/toast';
+import { AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 
@@ -13,7 +14,7 @@ for more info on providers and Angular DI.
 @Injectable()
 export class HistoryProvider {
   public historyKey:string;
-  constructor(private storage:Storage) {
+  constructor(private storage:Storage, private alertCtrl:AlertController) {
     this.historyKey = "history"
   }
   
@@ -38,8 +39,6 @@ export class HistoryProvider {
     }
     word = word.trim();
     word = word.toLowerCase();
-    console.log('mad_msg__word',word);
-    
     return word;
   }
   
@@ -194,8 +193,28 @@ export class HistoryProvider {
         resolve(true)
       }
       else{
-        this.delete(this.historyKey,false);
-        resolve(true)
+        //Todo::move to the new controller or provider
+        let confirm = this.alertCtrl.create({
+        title: 'Are U sure?',
+        message: 'It"s will deleted',
+        buttons: [
+          {
+            text: 'Disagree',
+            handler: () => { 
+              reject(false)
+            }
+          },
+          {
+            text: 'Agree',
+            handler: () => {
+              this.delete(this.historyKey,false);
+              resolve(true)
+            }
+          }
+        ]
+      });
+      confirm.present();
+        
       }
     });
   }

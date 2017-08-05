@@ -20,23 +20,6 @@ export class HomePage {
     this.historyListObj = {}
     this.selecteMeanList = [];
     this.init();
-    //Todo::remove wait and call 
-    // setTimeout(() => {
-    //   this.dic.find = 'car';
-    //   this.findword(null);
-    // },1000) 
-
-    // let items = [
-    //   'Amsterdam',
-    //   'Amara',
-    //   'Bogota',
-    // ];
-
-    // items.filter((item)=>{
-    //   console.log('mad_msg__ item', item);
-      
-    // });
-    
   }
   private historyLoad(){
     //Todo::To convert to promise
@@ -55,11 +38,6 @@ export class HomePage {
   protected browesWord(word:string) : any{
     if (word && word.trim() != '') {
       return this.wordlist[word];
-      // this.wordlist = this.wordlist.filter((result) => {
-      //   console.log('mad_msg__resutl',result);
-        
-      //   // return (word.toLowerCase().indexOf(word.toLowerCase()) > -1);
-      // })
     }
   }
 
@@ -69,7 +47,7 @@ export class HomePage {
 
   // added to the history
   wordSelected (mean: string, isRemove:boolean){
-    let word = this.dic.find
+    let word = this.history.wordClean(this.dic.find);
     word = this.history.wordClean(word);
     if(isRemove){
       this.clear(word, mean, isRemove)
@@ -85,9 +63,9 @@ export class HomePage {
   }
 
   findword (ev) {
-    let word = this.dic.find;
-    word = this.history.wordClean(word)
+    let word = this.history.wordClean(this.dic.find);
     if(word){
+      word = word.trim()
       // load the history with mean
       this.history.load(word,[]).then(meanArr=>{
         this.historyLoad()
