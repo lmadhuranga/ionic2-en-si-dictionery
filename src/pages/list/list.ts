@@ -61,6 +61,8 @@ export class ListPage {
   }
 
   clear(word:string, mean:string ){
-    this.history.clear(word, mean);
+    this.history.clear(word, mean, true).then(response=>{
+      this.load();
+    });
   }
 }

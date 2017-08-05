@@ -8,12 +8,13 @@
 </ion-header>
 
 <ion-content padding>
+    
     <ion-searchbar (ionInput)='findword($event)' [(ngModel)]="dic.find"></ion-searchbar>
     <ion-list radio-group>
-      <ion-list-header> Mean </ion-list-header>
-      <ion-item  *ngFor="let mean of selecteMeanList" (click)="wordSelected(mean)">
+      <!-- <ion-list-header> Mean </ion-list-header> -->
+      <ion-item  *ngFor="let mean of selecteMeanList">
         <ion-label>{{ mean }} </ion-label>
-        <ion-checkbox color="royal" checked="true" (click)="wordSelected(mean)"></ion-checkbox> 
+        <ion-checkbox color="royal" checked="{{isInHistory(dic.find,mean)}}" (click)="wordSelected(mean,isInHistory(dic.find,mean))"></ion-checkbox> 
       </ion-item>
   </ion-list> 
 </ion-content>

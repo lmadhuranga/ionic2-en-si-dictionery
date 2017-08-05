@@ -12,7 +12,7 @@ for more info on providers and Angular DI.
   */
 @Injectable()
 export class HistoryProvider {
-  protected historyKey:string;
+  public historyKey:string;
   constructor(private storage:Storage) {
     this.historyKey = "history"
   }
@@ -174,24 +174,27 @@ export class HistoryProvider {
     });
   }
   
-  public clear(word:string, mean:string){
-    
+  public clear(word:string, mean:string, isRemove:boolean){
+    //Todo::Convert to to promise
     word =  this.wordClean(word);
     mean =  this.wordClean(mean); 
-    
-    // remove all means with word
-    if(word && mean){
-      this.updateFromMean(word, mean, true);
-    }
-    // word with mean remove each mean
-    else if(word && !mean){
-      //Todo:: add to promise
-      this.removeFromHistory(word);
-    }
-    else{
-      this.delete(this.historyKey,false);
-    }
-    
+    return new Promise((resolve, reject) => {
+       // remove all means with word
+      if(word && mean){
+        this.updateFromMean(word, mean, isRemove);
+        resolve(true)
+      }
+      // word with mean remove each mean
+      else if(word && !mean){
+        //Todo:: add to promise
+        this.removeFromHistory(word);
+        resolve(true)
+      }
+      else{
+        this.delete(this.historyKey,false);
+        resolve(true)
+      }
+    });
   }
   
 }
