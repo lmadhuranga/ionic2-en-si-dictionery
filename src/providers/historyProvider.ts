@@ -37,6 +37,9 @@ export class HistoryProvider {
       return null;
     }
     word = word.trim();
+    word = word.toLowerCase();
+    console.log('mad_msg__word',word);
+    
     return word;
   }
   

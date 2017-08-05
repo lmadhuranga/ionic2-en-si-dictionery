@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { HistoryProvider } from '../../providers/historyProvider';
 
+
 @Component({
   selector: 'page-list',
   templateUrl: 'list.html'
@@ -13,10 +14,11 @@ export class ListPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,private history:HistoryProvider) { 
     this.load();
     this.historyMeanList= {};
-    
   }
 
   protected load(){
+    console.log('mad_msg__load called');
+    
     // get all history
     this.history.load(this.historyKey,[])
       .then((data) => { 
@@ -29,10 +31,9 @@ export class ListPage {
               this.history.load(word,[]).then(meanarray =>{
                 // get word for means
                 this.historyMeanList[word] = meanarray;
-              })
+              });
             });
           }
-          
         }
       });
   }
@@ -62,7 +63,9 @@ export class ListPage {
 
   clear(word:string, mean:string ){
     this.history.clear(word, mean, true).then(response=>{
-      this.load();
+      setTimeout(()=>{
+        this.load()
+      }, 400)
     });
   }
 }

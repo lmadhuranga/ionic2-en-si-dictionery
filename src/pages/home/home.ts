@@ -25,6 +25,17 @@ export class HomePage {
     //   this.dic.find = 'car';
     //   this.findword(null);
     // },1000) 
+
+    // let items = [
+    //   'Amsterdam',
+    //   'Amara',
+    //   'Bogota',
+    // ];
+
+    // items.filter((item)=>{
+    //   console.log('mad_msg__ item', item);
+      
+    // });
     
   }
   private historyLoad(){
@@ -75,8 +86,8 @@ export class HomePage {
 
   findword (ev) {
     let word = this.dic.find;
+    word = this.history.wordClean(word)
     if(word){
-      word = word.trim()
       // load the history with mean
       this.history.load(word,[]).then(meanArr=>{
         this.historyLoad()

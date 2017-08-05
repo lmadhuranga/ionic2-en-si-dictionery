@@ -25,6 +25,7 @@ import { HistoryProvider } from '../providers/historyProvider';
   imports: [
     BrowserModule,
     HttpModule,
+    HttpModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
