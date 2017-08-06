@@ -8,6 +8,7 @@ import { HistoryProvider } from '../../providers/historyProvider'
   templateUrl: 'home.html'
 })
 export class HomePage {
+  word: any;
   private dic: any;
   private wordlist: any;
   private historyMeanListObj: any;
@@ -54,9 +55,19 @@ export class HomePage {
     }
 
   }
-  findClear() {
-    this.emptyWordList();
+
+  recordTypeWord(word:string){
+    this.history.saveFinderWords(word);
+  }
+
+  finderClear(ev) {
+    this.recordTypeWord(this.dic.find)
     this.dic.find = "";
+    this.emptyWordList();
+  }
+  finderClear2(ev) {
+    this.dic.find = "";
+    this.emptyWordList();
   }
 
   /*newFind(word:string){
@@ -71,7 +82,6 @@ export class HomePage {
   findword(ev) {
     let word = this.history.wordClean(this.dic.find);
     if (word) {
-      word = word.trim()
       // load the history with mean
       this.history.load(word, []).then(meanArr => {
         this.historyLoad()
@@ -93,9 +103,5 @@ export class HomePage {
 
   isInHistory(word: string, mean: string) {
     return (this.historyMeanListObj[mean] == mean) && (this.historyListObj[word] == word)
-  }
-
-  doubleClick(ev){
-    this.dic.find = "";
   }
 }

@@ -13,9 +13,39 @@ for more info on providers and Angular DI.
   */
 @Injectable()
 export class HistoryProvider {
+  today: string;
   public historyKey: string;
+  public hisotryFinderKey: string;
   constructor(private storage: Storage, private alertCtrl: AlertController) {
-    this.historyKey = "history"
+    this.historyKey = "history";
+    this.hisotryFinderKey = '_finderword';
+    this.today = this.getToday();
+  }
+
+  getToday(){
+    let dateobj = new Date();
+    let year = dateobj.getFullYear()
+    let month = dateobj.getMonth()
+    let date = dateobj.getDate()
+    return `${year}-${month}-${date}`;
+  }
+
+  // save every word type in finder
+  saveFinderWords(word: string) {
+    word = this.wordClean(word);
+    //Todo::convert to promise
+    this.load(this.hisotryFinderKey, []).then(finderObj=>{
+      if(finderObj){
+        finderObj[word] = this.today;
+      }
+      else{
+        finderObj = {};
+        if(word){
+          finderObj[word] = this.today;
+        }
+      }
+      this.store(this.hisotryFinderKey,finderObj);
+    })
   }
 
   toObject(arr) {
@@ -74,6 +104,8 @@ export class HistoryProvider {
 
 
   protected store(key: string, saveData: any) {
+    console.log('mad_msg__store called infun');
+    
     this.storage.set(key, JSON.stringify(saveData));
   }
 
