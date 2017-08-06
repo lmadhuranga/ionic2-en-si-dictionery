@@ -6,7 +6,9 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { HistoryList } from '../pages/history/list';
+import { MyWordsList } from '../pages/my-words/list';
+
 import { Wordcomp } from '../components/wordcomp/wordcomp';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -19,7 +21,8 @@ import { HistoryProvider } from '../providers/historyProvider';
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
+    HistoryList,
+    MyWordsList,
     Wordcomp
   ],
   imports: [
@@ -33,7 +36,8 @@ import { HistoryProvider } from '../providers/historyProvider';
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    HistoryList,
+    MyWordsList
   ],
   providers: [
     StatusBar,
@@ -41,7 +45,7 @@ import { HistoryProvider } from '../providers/historyProvider';
     Dictionery,
     Favourite,
     HistoryProvider,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
-export class AppModule {}
+export class AppModule { }
