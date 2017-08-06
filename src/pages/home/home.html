@@ -11,20 +11,28 @@
   <ion-searchbar (dblclick)="finderClear2($event)" (click)="finderClear($event)" (ionInput)='findword($event)' [(ngModel)]="dic.find"></ion-searchbar>
   <ion-list>
     <!-- <ion-list-header> Mean </ion-list-header> -->
-    <ion-item  *ngFor="let mean of selecteMeanList">
+    <ion-item *ngFor="let mean of selecteMeanList">
       <ion-label>{{ mean }} </ion-label>
       <ion-toggle item-start checked="false" checked="{{isInHistory(dic.find,mean)}}" (click)="wordSelected(mean,isInHistory(dic.find,mean))"></ion-toggle>
       <!-- <ion-checkbox color="royal" checked="{{isInHistory(dic.find,mean)}}" (click)="wordSelected(mean,isInHistory(dic.find,mean))"></ion-checkbox>  -->
     </ion-item>
   </ion-list>
+  <hr/>
+  <ion-list *ngIf="(((selecteMeanList==null) || (selecteMeanList.length==0) )&& (dic.find==''))">
+    <!-- <ion-list-header> Mean </ion-list-header> -->
+    <ion-item *ngFor="let word of lastSaved">
+      <ion-label (click)="dic.find=word;findword($event);">{{ word }} </ion-label>
+    </ion-item>
+  </ion-list>
+
   <ion-fab right bottom>
-    <button ion-fab color="light" (click)="needToUpdate($event)" ><ion-icon name="arrow-dropleft"></ion-icon></button>
+    <button ion-fab color="light" (click)="needToUpdate($event)"><ion-icon name="arrow-dropleft"></ion-icon></button>
     <!-- <ion-fab-list side="left">
       <button (click)="needToUpdate($event)" ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
        <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
       <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
       <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button> 
     </ion-fab-list> -->
-  </ion-fab> 
+  </ion-fab>
 
 </ion-content>

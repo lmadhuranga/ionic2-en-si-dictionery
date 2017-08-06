@@ -22,7 +22,7 @@ export class HistoryProvider {
     this.today = this.getToday();
   }
 
-  getToday(){
+  getToday() {
     let dateobj = new Date();
     let year = dateobj.getFullYear()
     let month = dateobj.getMonth()
@@ -34,17 +34,17 @@ export class HistoryProvider {
   saveFinderWords(word: string) {
     word = this.wordClean(word);
     //Todo::convert to promise
-    this.load(this.hisotryFinderKey, []).then(finderObj=>{
-      if(finderObj){
+    this.load(this.hisotryFinderKey, []).then(finderObj => {
+      if (finderObj) {
         finderObj[word] = this.today;
       }
-      else{
+      else {
         finderObj = {};
-        if(word){
+        if (word) {
           finderObj[word] = this.today;
         }
       }
-      this.store(this.hisotryFinderKey,finderObj);
+      this.store(this.hisotryFinderKey, finderObj);
     })
   }
 
@@ -70,6 +70,20 @@ export class HistoryProvider {
     word = word.trim();
     word = word.toLowerCase();
     return word;
+  }
+
+  public getLast3Word() {
+    return new Promise((resolve, reject) => {
+      this.load(this.historyKey, [])
+        .then((historyArr: any) => {
+          resolve(historyArr)
+        })
+        .catch((error) => {
+          reject(error)
+        });
+    });
+
+
   }
 
 
@@ -105,7 +119,7 @@ export class HistoryProvider {
 
   protected store(key: string, saveData: any) {
     console.log('mad_msg__store called infun');
-    
+
     this.storage.set(key, JSON.stringify(saveData));
   }
 

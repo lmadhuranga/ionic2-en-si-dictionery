@@ -9,7 +9,7 @@ import { ToastProvider } from '../../providers/toast-provider';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  word: any;
+  private lastSaved: any;
   private dic: any;
   private wordlist: any;
   private historyMeanListObj: any;
@@ -20,8 +20,9 @@ export class HomePage {
     private history: HistoryProvider,
     private dicServise: Dictionery,
     private toast: ToastProvider) {
-      
+
     this.dic = {}
+    this.dic.find = '';
     this.historyListObj = {}
     this.selecteMeanList = [];
     this.init();
@@ -36,6 +37,7 @@ export class HomePage {
     this.dicServise.all().then((data) => {
       this.wordlist = data;
     });
+    this.loadLastSave()
   }
 
   protected browesWord(word: string): any {
@@ -65,10 +67,23 @@ export class HomePage {
     this.history.saveFinderWords(word);
   }
 
+  loadLastSave() {
+    let historyKeyArr 
+    this.history.getLast3Word().then(historyArr =>{
+      historyKeyArr = Object.keys(historyArr) 
+      this.lastSaved = [];
+      for (var index = historyKeyArr.length-1; (historyKeyArr.length-4) < index; index--) {
+        this.lastSaved.push(historyArr[historyKeyArr[index]]); 
+      }
+    });
+  }
+
   finderClear(ev) {
     this.recordTypeWord(this.dic.find)
     this.dic.find = "";
     this.emptyWordList();
+    this.loadLastSave()
+
   }
   finderClear2(ev) {
     this.dic.find = "";
@@ -84,9 +99,20 @@ export class HomePage {
     
   }*/
 
+
+
   findword(ev) {
     let word = this.history.wordClean(this.dic.find);
+
     if (word) {
+      let spaceindex = word.indexOf(' ')
+      if (spaceindex > -1) {
+        let wordlength = word.length
+        let temp = word.substr(spaceindex + 1, wordlength - spaceindex)
+        this.finderClear(ev);
+        this.dic.find = temp;
+      }
+
       // load the history with mean
       this.history.load(word, []).then(meanArr => {
         this.historyLoad()
@@ -113,10 +139,9 @@ export class HomePage {
   // Added to local storage needupdate 
   needToUpdate(ev) {
     let word = this.history.wordClean(this.dic.find);
-    if (this.dicServise.needToBeUpdateSave(word)) {
-      this.finderClear(ev)
-      this.toast.show('Word will updated');
-
-    }
+    this.dicServise.needToBeUpdateSave(word);
+    this.finderClear(ev);
+    this.toast.show('Word will updated');;
   }
+ 
 }
