@@ -16,6 +16,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Dictionery } from '../providers/dictionery';
 import { Favourite } from '../providers/favourite';
 import { HistoryProvider } from '../providers/historyProvider';
+import { ToastProvider } from '../providers/toast-provider';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { HistoryProvider } from '../providers/historyProvider';
     Dictionery,
     Favourite,
     HistoryProvider,
+    ToastProvider,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Dictionery } from '../../providers/dictionery';
-import { HistoryProvider } from '../../providers/historyProvider'
+import { HistoryProvider } from '../../providers/historyProvider';
+import { ToastProvider } from '../../providers/toast-provider';
 
 @Component({
   selector: 'page-home',
@@ -15,7 +16,11 @@ export class HomePage {
   private historyListObj: any;
 
   private selecteMeanList: any;
-  constructor(public navCtrl: NavController, private history: HistoryProvider, private dicServise: Dictionery) {
+  constructor(public navCtrl: NavController,
+    private history: HistoryProvider,
+    private dicServise: Dictionery,
+    private toast: ToastProvider) {
+      
     this.dic = {}
     this.historyListObj = {}
     this.selecteMeanList = [];
@@ -28,7 +33,7 @@ export class HomePage {
     })
   }
   public init() {
-    this.dicServise.load().then((data) => {
+    this.dicServise.all().then((data) => {
       this.wordlist = data;
     });
   }
@@ -56,7 +61,7 @@ export class HomePage {
 
   }
 
-  recordTypeWord(word:string){
+  recordTypeWord(word: string) {
     this.history.saveFinderWords(word);
   }
 
@@ -103,5 +108,15 @@ export class HomePage {
 
   isInHistory(word: string, mean: string) {
     return (this.historyMeanListObj[mean] == mean) && (this.historyListObj[word] == word)
+  }
+
+  // Added to local storage needupdate 
+  needToUpdate(ev) {
+    let word = this.history.wordClean(this.dic.find);
+    if (this.dicServise.needToBeUpdateSave(word)) {
+      this.finderClear(ev)
+      this.toast.show('Word will updated');
+
+    }
   }
 }
