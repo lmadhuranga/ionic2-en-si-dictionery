@@ -59,6 +59,15 @@ export class HomePage {
     this.dic.find = "";
   }
 
+  /*newFind(word:string){
+    let newWordlistArr = Object.keys(this.wordlist);
+    this.wordlist = newWordlistArr.filter((item) => {
+      return (item.toLowerCase().indexOf(word.toLowerCase()) > -1);
+    });
+    console.log('mad_msg__this.wordlist',this.wordlist);
+    
+  }*/
+
   findword(ev) {
     let word = this.history.wordClean(this.dic.find);
     if (word) {
@@ -78,11 +87,15 @@ export class HomePage {
 
   clear(word: string, mean: string, isRemove) {
     this.history.clear(word, mean, isRemove).then(response => {
-      console.log('mad_msg__deleted', mean);
+      console.log('mad_msg__deleted', response);
     });
   }
 
   isInHistory(word: string, mean: string) {
     return (this.historyMeanListObj[mean] == mean) && (this.historyListObj[word] == word)
+  }
+
+  doubleClick(ev){
+    this.dic.find = "";
   }
 }

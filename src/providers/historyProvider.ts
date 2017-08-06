@@ -78,8 +78,6 @@ export class HistoryProvider {
   }
 
   public add(word, mean) {
-    console.log('mad_msg__word,mean', word, mean);
-
     // check exist 
     this.storage.get(this.historyKey).then((historyRowData: any) => {
       // Check local storage emtpty

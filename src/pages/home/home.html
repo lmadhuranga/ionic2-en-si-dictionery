@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-searchbar (ionInput)='findword($event)' [(ngModel)]="dic.find"></ion-searchbar>
+  <ion-searchbar (dblclick)="doubleClick($event)" (ionInput)='findword($event)' [(ngModel)]="dic.find"></ion-searchbar>
   <ion-list>
     <!-- <ion-list-header> Mean </ion-list-header> -->
     <ion-item  *ngFor="let mean of selecteMeanList">
