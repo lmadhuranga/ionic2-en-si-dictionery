@@ -82,10 +82,7 @@ export class HistoryProvider {
           reject(error)
         });
     });
-
-
   }
-
 
   public save(data) {
     //  this.store(this.historyKey,data);
@@ -120,7 +117,10 @@ export class HistoryProvider {
   protected store(key: string, saveData: any) {
     console.log('mad_msg__store called infun');
 
-    this.storage.set(key, JSON.stringify(saveData));
+    this.storage.set(key, JSON.stringify(saveData)).catch(error=>{
+      console.error('mad_msg__ not saved error',error);
+      
+    });
   }
 
   public add(word, mean) {

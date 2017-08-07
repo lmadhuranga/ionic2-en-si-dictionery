@@ -34,10 +34,13 @@ export class HomePage {
     })
   }
   public init() {
+    console.log('mad_msg__dictionery start loading-------------');
     this.dicServise.all().then((data) => {
       this.wordlist = data;
+      console.log('mad_msg__dictionery loaded-------------');
+      
     });
-    this.loadLastSave()
+    // this.loadLastSave()
   }
 
   protected browesWord(word: string): any {
@@ -68,12 +71,14 @@ export class HomePage {
   }
 
   loadLastSave() {
-    let historyKeyArr 
+    let historyKeyArr = []; 
+    this.lastSaved = [];
     this.history.getLast3Word().then(historyArr =>{
-      historyKeyArr = Object.keys(historyArr) 
-      this.lastSaved = [];
-      for (var index = historyKeyArr.length-1; (historyKeyArr.length-4) < index; index--) {
-        this.lastSaved.push(historyArr[historyKeyArr[index]]); 
+      if(historyArr){
+        historyKeyArr = Object.keys(historyArr)
+        for (var index = historyKeyArr.length-1; (historyKeyArr.length-4) < index; index--) {
+          this.lastSaved.push(historyArr[historyKeyArr[index]]); 
+        }
       }
     });
   }
@@ -83,7 +88,6 @@ export class HomePage {
     this.dic.find = "";
     this.emptyWordList();
     this.loadLastSave()
-
   }
   finderClear2(ev) {
     this.dic.find = "";
