@@ -3,29 +3,36 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Translates</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>My dictionery</h3>
+  <ion-searchbar (dblclick)="finderClear2($event)" (click)="finderClear($event)" (ionInput)='findword($event)' [(ngModel)]="dic.find"></ion-searchbar>
   <ion-list>
-
-    <ion-item>
-      <ion-input type="text" ngModel (ngModelChange)='findword()' [(ngModel)]="dic.find"></ion-input>
-      <button ion-button outline item-end icon-left (click)='findword()'>
-        <ion-icon name="search"></ion-icon>
-      </button>
-      <button ion-button outline item-end icon-left (click)='clear()'>
-        <ion-icon name="trash"></ion-icon>
-      </button>
+    <!-- <ion-list-header> Mean </ion-list-header> -->
+    <ion-item *ngFor="let mean of selecteMeanList">
+      <ion-label>{{ mean }} </ion-label>
+      <ion-toggle item-start checked="false" checked="{{isInHistory(dic.find,mean)}}" (click)="wordSelected(mean,isInHistory(dic.find,mean))"></ion-toggle>
+      <!-- <ion-checkbox color="royal" checked="{{isInHistory(dic.find,mean)}}" (click)="wordSelected(mean,isInHistory(dic.find,mean))"></ion-checkbox>  -->
     </ion-item>
+  </ion-list>
+  <hr/>
+  <ion-list *ngIf="(((selecteMeanList==null) || (selecteMeanList.length==0) )&& (dic.find==''))">
+    <!-- <ion-list-header> Mean </ion-list-header> -->
+    <ion-item *ngFor="let word of lastSaved">
+      <ion-label (click)="dic.find=word;findword($event);">{{ word }} </ion-label>
+    </ion-item>
+  </ion-list>
 
-    <ion-item  *ngFor="let word of selecteWords" (click)="wordSelected(word)">
-      {{ word }}
-      <button ion-button outline item-end icon-left (click)="wordSelected(word)">
-        <ion-icon name="star"></ion-icon>
-      </button>
-    </ion-item>    
-</ion-list> 
+  <ion-fab right bottom>
+    <button ion-fab color="light" (click)="needToUpdate($event)"><ion-icon name="arrow-dropleft"></ion-icon></button>
+    <!-- <ion-fab-list side="left">
+      <button (click)="needToUpdate($event)" ion-fab><ion-icon name="logo-facebook"></ion-icon></button>
+       <button ion-fab><ion-icon name="logo-twitter"></ion-icon></button>
+      <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+      <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button> 
+    </ion-fab-list> -->
+  </ion-fab>
+
 </ion-content>

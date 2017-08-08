@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-// import { Http } from '@angular/http';
+import { Http } from '@angular/http';
 // import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 
@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class Favourite {
 
-  constructor( ) {
+  constructor(public http: Http) {
     console.log('Hello Favorite Provider');
   }
 

@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>History</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item *ngFor="let word of historyWordList; index as i">
+    {{i+1}}:{{word}} -
+    <span *ngFor="let mean of historyMeanList[word]" (click)="clear(word,mean)">
+      {{ mean }},
+    </span>
+  </ion-item>
+   <!-- <ion-item-group *ngFor="let word of historyWordList">
+    <word-comp word="{{ word }}"></word-comp>
+    <ion-item *ngFor="let mean of historyMeanList[word]">
+      {{ mean }}
+      <button ion-button outline item-end icon-center (click)="clear(word,mean)">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+    </ion-item>
+  </ion-item-group>  -->
+  <button ion-button full (click)="clear()">Clear</button>
+</ion-content>
