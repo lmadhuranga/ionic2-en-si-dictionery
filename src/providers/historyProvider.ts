@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 // import { Http } from '@angular/http';
 // import { Toast } from '@ionic-native/toast';
 import { AlertController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage'; 
 import 'rxjs/add/operator/map';
 
 /*
@@ -20,6 +20,7 @@ export class HistoryProvider {
     this.historyKey = "history";
     this.hisotryFinderKey = '_finderword';
     this.today = this.getToday();
+    
   }
 
   getToday() {
@@ -103,11 +104,14 @@ export class HistoryProvider {
           // check mean in array
           if (!allMeanObj[mean]) {
             allMeanArr.push(mean);
+            console.log('mad_msg__ array save mean 121');
+            
             this.store(word, allMeanArr);
           }
         }
         else {
           allMeanArr.push(mean);
+          console.log('mad_msg__ array save mean 128');
           this.store(word, allMeanArr);
         }
       })
@@ -115,7 +119,7 @@ export class HistoryProvider {
 
 
   protected store(key: string, saveData: any) {
-    console.log('mad_msg__store called infun');
+    console.log('mad_msg__store called');
 
     this.storage.set(key, JSON.stringify(saveData)).catch(error=>{
       console.error('mad_msg__ not saved error',error);

@@ -14,6 +14,7 @@ export class HomePage {
   private wordlist: any;
   private historyMeanListObj: any;
   private historyListObj: any;
+  private lastSavedMeans: any;
 
   private selecteMeanList: any;
   constructor(public navCtrl: NavController,
@@ -25,6 +26,8 @@ export class HomePage {
     this.dic.find = '';
     this.historyListObj = {}
     this.selecteMeanList = [];
+    this.lastSavedMeans = [];
+    this.lastSaved = [];
     this.init();
   }
   private historyLoad() {
@@ -73,12 +76,15 @@ export class HomePage {
   loadLastSave() {
     let historyKeyArr = []; 
     this.lastSaved = [];
+    this.lastSavedMeans = [];
     this.history.getLast3Word().then(historyArr =>{
       if(historyArr){
         historyKeyArr = Object.keys(historyArr)
         for (var index = historyKeyArr.length-1; (historyKeyArr.length-4) < index; index--) {
-          this.lastSaved.push(historyArr[historyKeyArr[index]]); 
-        }
+          let word = historyArr[historyKeyArr[index]]
+          this.lastSaved.push(word) 
+          this.lastSavedMeans[word] = this.browesWord(word);
+        } 
       }
     });
   }

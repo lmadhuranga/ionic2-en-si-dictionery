@@ -21,7 +21,12 @@
   <ion-list *ngIf="(((selecteMeanList==null) || (selecteMeanList.length==0) )&& (dic.find==''))">
     <!-- <ion-list-header> Mean </ion-list-header> -->
     <ion-item *ngFor="let word of lastSaved">
-      <ion-label (click)="dic.find=word;findword($event);">{{ word }} </ion-label>
+      <ion-label (click)="dic.find=word;findword($event);">
+        {{ word }} : 
+        <span *ngFor="let mean of lastSavedMeans[word]" >
+          {{mean}},
+        </span>
+      </ion-label>
     </ion-item>
   </ion-list>
 
