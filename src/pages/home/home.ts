@@ -43,7 +43,7 @@ export class HomePage {
       console.log('mad_msg__dictionery loaded-------------');
       
     });
-    // this.loadLastSave()
+    // setTimeout(this.loadLastSave(), 2000)
   }
 
   protected browesWord(word: string): any {
@@ -106,23 +106,18 @@ export class HomePage {
       return (item.toLowerCase().indexOf(word.toLowerCase()) > -1);
     });
     console.log('mad_msg__this.wordlist',this.wordlist);
-    
   }*/
 
-
-
-  findword(ev) {
+  findword(ev):void {
     let word = this.history.wordClean(this.dic.find);
-
     if (word) {
       let spaceindex = word.indexOf(' ')
       if (spaceindex > -1) {
-        let wordlength = word.length
-        let temp = word.substr(spaceindex + 1, wordlength - spaceindex)
+        let wordlength = word.length;
+        let temp = word.substr(spaceindex + 1, wordlength - spaceindex);
         this.finderClear(ev);
         this.dic.find = temp;
       }
-
       // load the history with mean
       this.history.load(word, []).then(meanArr => {
         this.historyLoad()
